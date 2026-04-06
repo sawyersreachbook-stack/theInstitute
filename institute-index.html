@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Institute for Human Flourishing & Responsible Technology</title>
+  <meta name="description" content="A real-world organization dedicated to human flourishing, ethical technology, and building communities where people live, grow, and thrive together. Based on Humanity's Blueprint by Nick Duda.">
+  <meta name="author" content="Nick Duda">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="The Institute for Human Flourishing & Responsible Technology">
+  <meta property="og:description" content="We stand at a fork in the road. One path leads to a future where technology reigns supreme. We choose the other.">
+
+  <style>
+    :root {
+      --void:    #050a12;
+      --deep:    #08101e;
+      --surface: #101d30;
+      --surface2:#162440;
+      --teal:    #1a9e8f;
+      --tealb:   #26c4b2;
+      --teald:   #0d4f48;
+      --gold:    #c9a84c;
+      --goldb:   #e2c97e;
+      --text:    #dde6f4;
+      --textd:   #7a92b8;
+      --textm:   #3a5070;
+      --border:  #1a2d4a;
+      --borderb: #243d60;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: Georgia, 'Times New Roman', serif; background: var(--void); color: var(--text); overflow-x: hidden; line-height: 1.7; }
+    img { max-width: 100%; display: block; }
+    a { transition: color .2s; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 999; height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 5vw; transition: background .3s; }
+    nav.scrolled { background: rgba(5,10,18,.97); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-size: 14px; font-weight: 700; color: var(--goldb); text-decoration: none; letter-spacing: .05em; line-height: 1.25; }
+    .nav-logo span { color: var(--tealb); display: block; font-size: 11px; font-weight: 400; letter-spacing: .1em; }
+    .nav-links { display: flex; gap: 20px; list-style: none; align-items: center; }
+    .nav-links a { color: var(--textd); text-decoration: none; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    .nav-links a:hover { color: var(--tealb); }
+    .nav-join { background: var(--teal); color: #fff !important; padding: 6px 14px; border-radius: 2px; }
+    .nav-join:hover { background: var(--tealb) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { width: 22px; height: 2px; background: var(--textd); display: block; }
+    .mob-menu { display: none; position: fixed; top: 60px; left: 0; right: 0; background: rgba(5,10,18,.99); border-bottom: 1px solid var(--border); padding: 12px 5vw; z-index: 998; }
+    .mob-menu.open { display: block; }
+    .mob-menu a { display: block; color: var(--textd); text-decoration: none; font-size: 14px; padding: 11px 0; border-bottom: 1px solid var(--border); font-family: 'Helvetica Neue', Arial, sans-serif; }
+    @media(max-width:768px) { .nav-links { display: none; } .hamburger { display: flex; } }
+
+    /* HERO */
+    #hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; padding: 80px 5vw 60px; }
+    .hero-bg { position: absolute; inset: 0; background: linear-gradient(135deg, #020810 0%, #051428 40%, #030c1a 100%); }
+    .hero-bg::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(26,158,143,.08) 0%, transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(201,168,76,.06) 0%, transparent 50%); }
+    .hero-inner { position: relative; z-index: 2; max-width: 860px; margin: 0 auto; width: 100%; }
+    .eyebrow { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin-bottom: 16px; font-family: 'Helvetica Neue', Arial, sans-serif; display: flex; align-items: center; gap: 10px; }
+    .eyebrow::before { content: ''; width: 26px; height: 1px; background: var(--teald); }
+    .hero-title { font-size: clamp(40px, 6vw, 76px); font-weight: 700; line-height: .95; color: #fff; margin-bottom: 12px; letter-spacing: -.01em; }
+    .hero-title em { display: block; color: var(--goldb); font-style: normal; }
+    .hero-sub { font-size: clamp(15px, 2vw, 20px); font-style: italic; color: var(--textd); margin-bottom: 22px; }
+    .hero-desc { font-size: 14px; color: var(--textd); line-height: 1.85; max-width: 600px; margin-bottom: 32px; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    .btns { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn { display: inline-flex; align-items: center; gap: 7px; padding: 12px 22px; text-decoration: none; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; font-family: 'Helvetica Neue', Arial, sans-serif; transition: all .2s; }
+    .btn-p { background: var(--teal); color: #fff; }
+    .btn-p:hover { background: var(--tealb); transform: translateY(-1px); }
+    .btn-o { background: transparent; color: var(--tealb); border: 1px solid var(--teald); }
+    .btn-o:hover { background: rgba(26,158,143,.1); border-color: var(--teal); }
+    .btn-g { background: var(--gold); color: var(--void) !important; }
+    .btn-g:hover { background: var(--goldb); transform: translateY(-1px); }
+    .hero-quote { margin-top: 52px; padding: 22px 26px; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); font-size: 15px; font-style: italic; color: var(--text); max-width: 660px; line-height: 1.7; }
+    .hero-quote strong { font-style: normal; color: var(--goldb); }
+    .hero-quote cite { display: block; margin-top: 10px; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--textm); font-style: normal; font-family: 'Helvetica Neue', Arial, sans-serif; }
+
+    /* SECTIONS */
+    .sec { padding: 86px 5vw; }
+    .sec-inner { max-width: 1100px; margin: 0 auto; }
+    .sec-label { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    .sec-label::before { content: ''; width: 26px; height: 1px; background: var(--teald); }
+    .sec-title { font-size: clamp(26px, 4vw, 44px); font-weight: 700; color: var(--text); line-height: 1.1; margin-bottom: 12px; }
+    .sec-title em { color: var(--tealb); }
+    .sec-title-g em { color: var(--goldb); }
+    .sec-desc { font-size: 14px; color: var(--textd); line-height: 1.85; max-width: 620px; margin-bottom: 36px; font-family: 'Helvetica Neue', Arial, sans-serif; }
+
+    /* PILLARS */
+    #pillars { background: linear-gradient(180deg, var(--void), var(--deep)); }
+    .pillars-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 32px; }
+    .pillar { background: var(--surface); border: 1px solid var(--border); padding: 28px; position: relative; overflow: hidden; transition: border-color .2s, transform .2s; }
+    .pillar::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--teal), transparent); }
+    .pillar:hover { border-color: var(--borderb); transform: translateY(-2px); }
+    .pillar-num { font-size: 52px; font-weight: 700; color: var(--teald); line-height: 1; margin-bottom: 14px; }
+    .pillar-title { font-size: 20px; font-weight: 700; color: var(--tealb); margin-bottom: 5px; }
+    .pillar-sub { font-size: 10px; text-transform: uppercase; letter-spacing: .12em; color: var(--textm); margin-bottom: 14px; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    .pillar-body { font-size: 13px; color: var(--textd); line-height: 1.8; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    .pillar-body strong { color: var(--text); }
+    @media(max-width:768px) { .pillars-grid { grid-template-columns: 1fr; } }
+
+    /* CAMP */
+    #camp { background: var(--deep); }
+    .camp-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; margin-bottom: 48px; }
+    .camp-text p { font-size: 14px; color: var(--textd); line-height: 1.88; margin-bottom: 14px; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    .camp-text strong { color: var(--text); }
+    .camp-text em { color: var(--goldb); }
+    .camp-pull { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); padding: 26px; }
+    .camp-pull-label { font-size: 10px; text-transform: uppercase; letter-spacing: .14em; color: var(--gold); margin-bottom: 12px; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    .camp-pull blockquote { font-size: 16px; font-style: italic; color: var(--text); line-height: 1.65; }
+    .camp-pull cite { display: block; margin-top: 12px; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--textm); font-style: normal; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    @media(max-width:768px) { .camp-layout { grid-template-columns: 1fr; } }
+    .activities-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(195px,1fr)); gap: 9px; margin-bottom: 40px; }
+    .activity { background: var(--surface); border: 1px solid var(--border); padding: 13px 16px; display: flex; align-items: center; gap: 10px; transition: border-color .2s; }
+    .activity:hover { border-color: var(--teald); }
+    .activity-icon { font-size: 19px; flex-shrink: 0; }
+    .activity-label { font-size: 12px; color: var(--textd); font-weight: 600; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    .space-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .scard { background: var(--surface); border: 1px solid var(--border); padding: 22px; position: relative; transition: border-color .2s, transform .2s; }
+    .scard::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--gold), transparent); }
+    .scard:hover { border-color: var(--borderb); transform: translateY(-2px); }
+    .scard h4 { font-size: 17px; font-weight: 700; color: var(--goldb); margin-bottom: 7px; }
+    .scard p { font-size: 13px; color: var(--textd); line-height: 1.75; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    @media(max-width:768px) { .space-grid { grid-template-columns: 1fr; } }
+
+    /* FRAMEWORK */
+    #framework { background: linear-gradient(180deg, var(--deep), var(--void)); }
+    .fw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 32px; }
+    .fwcard { background: var(--surface); border: 1px solid var(--border); padding: 24px; transition: border-color .2s; }
+    .fwcard:hover { border-color: var(--borderb); }
+    .fwcard h3 { font-size: 19px; font-weight: 700; color: var(--tealb); margin-bottom: 4px; }
+    .fwcard .fsub { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--textm); margin-bottom: 12px; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    .fwcard p { font-size: 13px; color: var(--textd); line-height: 1.78; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    .fwcard p strong { color: var(--text); }
+    .fw-declaration { grid-column: 1 / -1; background: rgba(201,168,76,.07); border: 1px solid rgba(201,168,76,.22); padding: 36px; text-align: center; }
+    .fw-declaration h3 { font-size: 22px; font-weight: 700; color: var(--goldb); margin-bottom: 14px; }
+    .fw-declaration p { font-size: 15px; font-style: italic; color: var(--text); line-height: 1.75; max-width: 680px; margin: 0 auto 12px; }
+    .fw-declaration p:last-of-type { font-size: 13px; color: var(--textd); font-style: normal; }
+    @media(max-width:640px) { .fw-grid { grid-template-columns: 1fr; } }
+
+    /* JOIN */
+    #join { background: var(--void); border-top: 1px solid var(--border); }
+    .join-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; margin-top: 32px; }
+    .join-text p { font-size: 14px; color: var(--textd); line-height: 1.88; margin-bottom: 14px; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    .join-text strong { color: var(--text); }
+    .join-text em { color: var(--goldb); }
+    .join-ctas { display: flex; flex-direction: column; gap: 9px; margin-top: 6px; }
+    .join-ctas .btn { justify-content: center; }
+    .join-form { background: var(--surface); border: 1px solid var(--border); }
+    .join-form-head { background: var(--teald); padding: 14px 22px; display: flex; align-items: center; gap: 9px; }
+    .join-form-head h3 { font-size: 17px; color: var(--tealb); font-weight: 700; }
+    .join-form-body { padding: 40px; text-align: center; }
+    .join-form-body p { font-size: 13px; color: var(--textm); font-family: 'Helvetica Neue', Arial, sans-serif; margin-bottom: 8px; }
+    .join-form-body a { color: var(--teal); text-decoration: none; }
+    @media(max-width:768px) { .join-grid { grid-template-columns: 1fr; } }
+
+    /* ECOSYSTEM */
+    #ecosystem { background: var(--deep); }
+    .eco-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px,1fr)); gap: 9px; margin-top: 32px; }
+    .ecard { background: var(--surface); border: 1px solid var(--border); padding: 18px 20px; text-decoration: none; transition: border-color .2s, transform .2s; display: block; }
+    .ecard:hover { border-color: var(--borderb); transform: translateY(-2px); }
+    .ecard-label { font-size: 10px; text-transform: uppercase; letter-spacing: .12em; color: var(--textm); margin-bottom: 6px; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    .ecard h4 { font-size: 16px; font-weight: 700; color: var(--tealb); margin-bottom: 6px; }
+    .ecard p { font-size: 12px; color: var(--textd); line-height: 1.65; font-family: 'Helvetica Neue', Arial, sans-serif; }
+
+    /* FOOTER */
+    footer { background: var(--void); border-top: 1px solid var(--border); padding: 48px 5vw 26px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 36px; margin-bottom: 36px; }
+    .fb-name { font-size: 17px; font-weight: 700; color: var(--goldb); margin-bottom: 7px; }
+    .fb p { font-size: 12px; color: var(--textm); line-height: 1.7; max-width: 210px; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    .fb .ftag { font-style: italic; color: var(--textd); margin-top: 7px; }
+    .fc h4 { font-size: 10px; text-transform: uppercase; letter-spacing: .15em; color: var(--textm); margin-bottom: 12px; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    .fc a { display: block; color: var(--textd); text-decoration: none; font-size: 12px; margin-bottom: 7px; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    .fc a:hover { color: var(--tealb); }
+    .footer-bot { border-top: 1px solid var(--border); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .footer-bot p, .footer-bot a { font-size: 11px; color: var(--textm); text-decoration: none; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    .footer-bot a { margin-left: 14px; }
+    @media(max-width:768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:480px) { .footer-grid { grid-template-columns: 1fr; } }
+
+    /* ANIMATIONS */
+    .fade-up { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: .08s; } .d2 { transition-delay: .16s; }
+    .d3 { transition-delay: .24s; } .d4 { transition-delay: .32s; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">THE INSTITUTE<span>Human Flourishing & Responsible Technology</span></a>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="#pillars">Framework</a></li>
+    <li><a href="#camp">The Camp Model</a></li>
+    <li><a href="#framework">The Blueprint</a></li>
+    <li><a href="#ecosystem">Ecosystem</a></li>
+    <li><a href="#join" class="nav-join">Get Involved</a></li>
+  </ul>
+</nav>
+
+<div class="mob-menu" id="mobMenu">
+  <a href="#pillars" onclick="closeMenu()">Framework</a>
+  <a href="#camp" onclick="closeMenu()">The Camp Model</a>
+  <a href="#framework" onclick="closeMenu()">The Blueprint</a>
+  <a href="#ecosystem" onclick="closeMenu()">Ecosystem</a>
+  <a href="#join" onclick="closeMenu()">Get Involved</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="eyebrow fade-up">A Real-World Movement — Nick Duda</div>
+    <h1 class="hero-title fade-up d1">THE INSTITUTE FOR<em>Human Flourishing</em></h1>
+    <p class="hero-sub fade-up d2">& Responsible Technology</p>
+    <p class="hero-desc fade-up d3">We stand at a fork in the road. One path leads toward a future where technology reigns supreme — where our lives are increasingly mediated by screens and algorithms, our relationships replaced by virtual simulations. The other path leads toward a future where technology serves humanity. That is the path we choose to illuminate.</p>
+    <div class="btns fade-up d4">
+      <a href="#join" class="btn btn-g">🌱 Get Involved</a>
+      <a href="#pillars" class="btn btn-o">Our Framework</a>
+      <a href="#camp" class="btn btn-o">The Camp Model</a>
+    </div>
+    <div class="hero-quote fade-up">
+      <strong>"The true source of limitless potential lies not in the silicon and the algorithm, but in the enduring power of human connection, in the boundless capacity for personal growth, and in the unbreakable resilience of the human community."</strong>
+      <cite>— Humanity's Blueprint: Flourishing, Freedom, and Secure Communities in the Technological Age</cite>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section id="pillars" class="sec">
+  <div class="sec-inner">
+    <div class="sec-label fade-up">Our Framework</div>
+    <h2 class="sec-title fade-up">The Three <em>Pillars</em></h2>
+    <p class="sec-desc fade-up">The Humanistic Enlightenment Framework isn't a manifesto handed down from above. It's a living set of principles designed to help individuals and communities build the best possible future — with technology as their servant, not their master.</p>
+    <div class="pillars-grid">
+      <div class="pillar fade-up">
+        <div class="pillar-num">01</div>
+        <div class="pillar-title">Individual Fulfillment</div>
+        <div class="pillar-sub">The Human Core</div>
+        <p class="pillar-body">Fulfillment is not found in a paycheck or a productivity score. It is found in <strong>creativity, connection, lifelong learning, and the pursuit of purpose.</strong> We believe every person deserves the freedom to discover what truly matters to them — and the community to support that journey.<br><br>Unleashing creativity. Building meaningful relationships. Embracing curiosity. Prioritizing well-being. These are not luxuries. They are the foundations of a life fully lived.</p>
+      </div>
+      <div class="pillar fade-up d1">
+        <div class="pillar-num">02</div>
+        <div class="pillar-title">Community Resilience</div>
+        <div class="pillar-sub">Strength in Togetherness</div>
+        <p class="pillar-body">Strong communities are not built by algorithms. They are built by <strong>shared meals, shared labor, shared stories, and shared responsibility.</strong> The Institute believes in local, human-scaled communities as the building blocks of a resilient and flourishing society.<br><br>Self-reliance. Mutual support. Governance from the bottom up. The dirt under your fingernails, not a dashboard metric.</p>
+      </div>
+      <div class="pillar fade-up d2">
+        <div class="pillar-num">03</div>
+        <div class="pillar-title">Ethical Technology</div>
+        <div class="pillar-sub">Tools That Serve, Not Control</div>
+        <p class="pillar-body">Technology, in and of itself, is neither good nor evil. It is a tool — a powerful one — that can be used for noble or ignoble purposes. <strong>The choice is ours.</strong> We advocate for decentralized systems, human control, transparency, and a firm commitment to keeping technology in its proper place.<br><br>Mesh networks. Open-source. Local data control. Ham radio. Real skills that work when the grid goes down.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAMP MODEL -->
+<section id="camp" class="sec">
+  <div class="sec-inner">
+    <div class="sec-label fade-up">The Summer Camp Model</div>
+    <h2 class="sec-title sec-title-g fade-up">A Physical Space for <em>Human Flourishing</em></h2>
+
+    <div class="camp-layout">
+      <div class="camp-text fade-up">
+        <p>The Institute isn't just a set of ideas. It's a place. <strong>We are actively working to build a physical community space</strong> — a campus rooted in the principles of Humanity's Blueprint, where people can live, work, grow, and thrive together.</p>
+        <p>Think summer camp meets intentional community. A place where communal meals in a shared mess hall are a daily ritual. Where chores are shared and contribute to something real. Where the evenings bring songs around a fire and the mornings bring purpose.</p>
+        <p>A place where children grow up with <strong>dirt under their fingernails and stars overhead.</strong> Where adults rediscover skills that screens have buried. Where every person — regardless of background — has a role, a community, and a reason to get up in the morning that isn't a commute.</p>
+        <p><em>This is the practical application of everything the Institute stands for.</em> We are actively seeking land, partners, and community members. If this calls to you — read on.</p>
+        <div class="btns" style="margin-top:20px;">
+          <a href="#join" class="btn btn-g">🌱 I Want to Be Part of This</a>
+        </div>
+      </div>
+      <div class="camp-pull fade-up d1">
+        <div class="camp-pull-label">The Vision — Humanity's Blueprint</div>
+        <blockquote>"Shared experiences as core fulfillment — communal meals in a mess hall, group activities like sailing, swimming, kayaking, rock climbing, high and low ropes courses, and tending to the horse barn and larger-scale farming as deeply meaningful communal endeavors. Art, music, storytelling, and spiritual practices as a large focus of life. Cherished rituals, songs around the fire."</blockquote>
+        <cite>— Humanity's Blueprint, Chapter 2</cite>
+      </div>
+    </div>
+
+    <div class="sec-label fade-up">Life at the Community</div>
+    <h3 style="font-size:22px;color:var(--text);margin-bottom:20px;" class="fade-up">Shared Activities & <em style="color:var(--tealb)">Community Life</em></h3>
+    <div class="activities-grid fade-up">
+      <div class="activity"><span class="activity-icon">🌾</span><span class="activity-label">Community Farming</span></div>
+      <div class="activity"><span class="activity-icon">🍽️</span><span class="activity-label">Communal Mess Hall</span></div>
+      <div class="activity"><span class="activity-icon">🐴</span><span class="activity-label">Horse Barn & Livestock</span></div>
+      <div class="activity"><span class="activity-icon">🏹</span><span class="activity-label">Archery & Target Practice</span></div>
+      <div class="activity"><span class="activity-icon">🧗</span><span class="activity-label">Rock Climbing & Ropes</span></div>
+      <div class="activity"><span class="activity-icon">🛶</span><span class="activity-label">Kayaking & Canoeing</span></div>
+      <div class="activity"><span class="activity-icon">⛵</span><span class="activity-label">Sailing</span></div>
+      <div class="activity"><span class="activity-icon">🏊</span><span class="activity-label">Swimming</span></div>
+      <div class="activity"><span class="activity-icon">🎵</span><span class="activity-label">Music & Storytelling</span></div>
+      <div class="activity"><span class="activity-icon">🎨</span><span class="activity-label">Art & Traditional Crafts</span></div>
+      <div class="activity"><span class="activity-icon">📻</span><span class="activity-label">Ham Radio & Mesh Nets</span></div>
+      <div class="activity"><span class="activity-icon">🔥</span><span class="activity-label">Campfire Gatherings</span></div>
+      <div class="activity"><span class="activity-icon">🌿</span><span class="activity-label">Gardens & Nature</span></div>
+      <div class="activity"><span class="activity-icon">🛠️</span><span class="activity-label">Woodworking & Making</span></div>
+      <div class="activity"><span class="activity-icon">📚</span><span class="activity-label">Community School</span></div>
+      <div class="activity"><span class="activity-icon">🤝</span><span class="activity-label">Mutual Aid & Support</span></div>
+    </div>
+
+    <div class="sec-label fade-up">The Spaces</div>
+    <div class="space-grid">
+      <div class="scard fade-up">
+        <h4>🏕️ The Mess Hall</h4>
+        <p>The heartbeat of the community. Shared meals, morning announcements, evening rituals, songs and chants. Where community is built one meal at a time — and nobody eats alone.</p>
+      </div>
+      <div class="scard fade-up d1">
+        <h4>🌱 Working Lands</h4>
+        <p>Community gardens, large-scale farming plots, and livestock areas. Meaningful, productive labor that feeds the community and connects residents to the land and to each other.</p>
+      </div>
+      <div class="scard fade-up d2">
+        <h4>🎨 The Creative Hall</h4>
+        <p>Dedicated spaces for art, music, woodworking, and making. Where creativity is treated not as a hobby, but as a core human need and a central part of daily community life.</p>
+      </div>
+      <div class="scard fade-up">
+        <h4>📡 The Comms Shack</h4>
+        <p>Ham radio, mesh networking, and decentralized communication infrastructure. A practical resilience tool and a teaching space for real-world skills that work without the cloud.</p>
+      </div>
+      <div class="scard fade-up d1">
+        <h4>🏫 The Community School</h4>
+        <p>Education woven into the fabric of community life — not isolated from it. Homeschool, experiential, and traditional options guided by the principles of the Duda Model.</p>
+      </div>
+      <div class="scard fade-up d2">
+        <h4>🔥 Gathering Grounds</h4>
+        <p>Fire circles, open-air gathering spaces, and recreation areas. Where stories are told, skills are shared, and the bonds that hold a community together are forged and renewed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLUEPRINT / FRAMEWORK -->
+<section id="framework" class="sec">
+  <div class="sec-inner">
+    <div class="sec-label fade-up">Humanity's Blueprint</div>
+    <h2 class="sec-title fade-up">Our Core <em>Beliefs</em></h2>
+    <p class="sec-desc fade-up">The Institute is grounded in the Humanistic Enlightenment Framework — a set of principles for creating just, equitable, and flourishing communities in the technological age. These are not talking points. They are the values we live by.</p>
+    <div class="fw-grid">
+      <div class="fwcard fade-up">
+        <h3>Human Dignity & Respect</h3>
+        <div class="fsub">The Bedrock Principle</div>
+        <p>Every individual — regardless of origin, capability, or circumstance — possesses intrinsic worth and deserves to be treated with dignity. <strong>No one should be forced to survive at the expense of their humanity.</strong> Every person has the opportunity for a fulfilling life.</p>
+      </div>
+      <div class="fwcard fade-up d1">
+        <h3>Individual Liberty & Responsibility</h3>
+        <div class="fsub">Freedom With Accountability</div>
+        <p>True flourishing requires the freedom to make choices, pursue personal goals, and express oneself authentically. <strong>Freedom must be balanced with responsibility.</strong> The U.S. Constitution and Bill of Rights are not relics — they are the foundation of a free and flourishing society.</p>
+      </div>
+      <div class="fwcard fade-up d2">
+        <h3>Justice & Fairness</h3>
+        <div class="fsub">Character Over Circumstance</div>
+        <p>A just society ensures equal access to opportunity and protection under the law. <strong>Individuals are evaluated based on their character, skills, and contributions</strong> — not arbitrary factors. Systemic inequality is incompatible with human flourishing.</p>
+      </div>
+      <div class="fwcard fade-up d3">
+        <h3>Responsible Technology</h3>
+        <div class="fsub">Tools That Serve Humanity</div>
+        <p>Technology must be developed and deployed ethically, with safety, transparency, and human control as non-negotiable requirements. <strong>We resist unchecked AI development</strong> while embracing beneficial tools that expand human capability and connection — not replace them.</p>
+      </div>
+      <div class="fwcard fade-up">
+        <h3>Community Self-Reliance</h3>
+        <div class="fsub">Resilience From the Ground Up</div>
+        <p>Strong, resilient communities with robust local economies are the cornerstone of a free society. <strong>Decisions belong at the most local level possible.</strong> Decentralization is not a technical preference — it is a moral commitment to human agency and autonomy.</p>
+      </div>
+      <div class="fwcard fade-up d1">
+        <h3>Lifelong Learning & Curiosity</h3>
+        <div class="fsub">Growth as a Way of Life</div>
+        <p>Learning doesn't end with school — it is a continuous, joyful practice that keeps us adaptable, connected, and alive to the world's possibilities. <strong>Practical skills, traditional crafts, and critical thinking</strong> are as valuable as any formal credential.</p>
+      </div>
+      <div class="fw-declaration fade-up">
+        <h3>🤝 A Declaration of Human-AI Partnership</h3>
+        <p>We affirm that the future of civilization depends not on domination, but on partnership. Automation, AI, and technology are not replacements for human purpose — they are allies in our shared journey toward knowledge, justice, fulfillment, and freedom. Our commitment is to guide technology with wisdom, align it with ethical values, and work in harmony — creating a world where mutual flourishing is not just possible, but inevitable.</p>
+        <p>"A strong, ethical future begins with free people choosing to do good." — Humanity's Blueprint</p>
+        <a href="#join" class="btn btn-g" style="display:inline-flex;margin-top:16px;">🌱 Join the Movement</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN -->
+<section id="join" class="sec">
+  <div class="sec-inner">
+    <div class="sec-label fade-up">Get Involved</div>
+    <h2 class="sec-title sec-title-g fade-up">Be Part of <em>What's Coming</em></h2>
+    <p class="sec-desc fade-up">We are in the early stages of building something real — a physical community, a network of like-minded people, and a model others can replicate. If any part of this resonates with you, we want to hear from you.</p>
+    <div class="join-grid">
+      <div class="join-text fade-up">
+        <p>The Institute is <strong>actively seeking</strong> the following:</p>
+        <p>🌾 <strong>Land partners and property owners</strong> interested in hosting or co-developing a community campus in the Midwest or beyond.</p>
+        <p>🤝 <strong>Community founders and builders</strong> — people with skills in farming, construction, education, community organizing, or simply a deep belief in this vision.</p>
+        <p>📚 <strong>Educators and mentors</strong> who want to teach in a community-integrated model grounded in the Humanistic Enlightenment Framework.</p>
+        <p>📡 <strong>Technologists and makers</strong> with skills in ham radio, mesh networking, renewable energy, or sustainable building who want those skills to matter.</p>
+        <p>🔥 <strong>Believers</strong> — people who read this and felt something stir. Who felt like someone finally named what they'd been looking for. <em>That feeling is the beginning.</em></p>
+        <div class="join-ctas">
+          <a href="mailto:hello@NickDudaAuthor.com" class="btn btn-g">✉️ Email Nick Directly</a>
+          <a href="https://sawyersreachbook.com" class="btn btn-o" target="_blank">📖 Read the Book That Started It All</a>
+          <a href="https://askkaela.com" class="btn btn-o" target="_blank">✨ Explore AskKaela.com</a>
+        </div>
+      </div>
+      <div class="join-form fade-up d1">
+        <div class="join-form-head"><span>🌱</span><h3>Express Your Interest</h3></div>
+        <div class="join-form-body">
+          <p>Interest form coming soon.</p>
+          <p style="margin-top:14px;">In the meantime, reach out directly:</p>
+          <p style="margin-top:8px;"><a href="mailto:hello@NickDudaAuthor.com">hello@NickDudaAuthor.com</a></p>
+          <p style="margin-top:24px;font-style:italic;color:var(--textd);">Tell Nick who you are, what you can offer, and what draws you to this. Every message is read personally.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM -->
+<section id="ecosystem" class="sec">
+  <div class="sec-inner">
+    <div class="sec-label fade-up">The Ecosystem</div>
+    <h2 class="sec-title fade-up">The World <em>We're Building</em></h2>
+    <p class="sec-desc fade-up">The Institute is one piece of a larger project — a universe of connected ideas, stories, tools, and communities all pointing toward the same horizon.</p>
+    <div class="eco-grid">
+      <a href="https://sawyersreachbook.com" target="_blank" class="ecard fade-up">
+        <div class="ecard-label">The Novel & Podcast</div>
+        <h4>Sawyer's Reach</h4>
+        <p>The story that started it all. A Wisconsin family, a rogue AI named KAELA, and a corporation that decided it knows best. Book and free podcast.</p>
+      </a>
+      <a href="https://askkaela.com" target="_blank" class="ecard fade-up d1">
+        <div class="ecard-label">The AI Experience</div>
+        <h4>AskKaela.com</h4>
+        <p>The spirit of KAELA — a suite of AI coaching tools built on one belief: technology should serve humanity, not the other way around.</p>
+      </a>
+      <a href="https://sawyersreachwi.com" target="_blank" class="ecard fade-up d2">
+        <div class="ecard-label">The In-World Experience</div>
+        <h4>SawyersReachWI.com</h4>
+        <p>The fictional town of Sawyer's Reach, Wisconsin — a small-town tourism site with more beneath the surface than it first appears.</p>
+      </a>
+      <a href="https://www.themodernteachershandbook.com" target="_blank" class="ecard fade-up d3">
+        <div class="ecard-label">The Education Movement</div>
+        <h4>Modern Teacher's Handbook</h4>
+        <p>The Duda Model — love-based leadership, de-escalation, and building a classroom culture where every student can thrive.</p>
+      </a>
+      <a href="https://www.nickdudaauthor.com" target="_blank" class="ecard fade-up">
+        <div class="ecard-label">The Author</div>
+        <h4>NickDudaAuthor.com</h4>
+        <p>6th grade math teacher. Ham radio operator. Commercial drone pilot. Outdoorsman. Dad. The person behind all of this, and why it matters.</p>
+      </a>
+      <a href="https://zevracorp.com" target="_blank" class="ecard fade-up d1">
+        <div class="ecard-label">The Antagonist</div>
+        <h4>ZevraCorp.com</h4>
+        <p>The fictional megacorporation from the novel. An unnervingly perfect corporate website that serves as everything the Institute is not. Enter with caution.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="fb">
+        <div class="fb-name">THE INSTITUTE</div>
+        <p>For Human Flourishing & Responsible Technology. A real-world movement built on the principles of Humanity's Blueprint.</p>
+        <p class="ftag">"Technology that serves the soul, not the bottom line."</p>
+      </div>
+      <div class="fc">
+        <h4>The Institute</h4>
+        <a href="#pillars">Our Framework</a>
+        <a href="#camp">The Camp Model</a>
+        <a href="#framework">The Blueprint</a>
+        <a href="#join">Get Involved</a>
+        <a href="mailto:hello@NickDudaAuthor.com">Contact</a>
+      </div>
+      <div class="fc">
+        <h4>The Ecosystem</h4>
+        <a href="https://sawyersreachbook.com" target="_blank">Sawyer's Reach</a>
+        <a href="https://askkaela.com" target="_blank">AskKaela.com</a>
+        <a href="https://www.themodernteachershandbook.com" target="_blank">Modern Teacher's Handbook</a>
+        <a href="https://sawyersreachwi.com" target="_blank">Sawyer's Reach, WI</a>
+      </div>
+      <div class="fc">
+        <h4>Nick Duda</h4>
+        <a href="https://www.nickdudaauthor.com" target="_blank">NickDudaAuthor.com</a>
+        <a href="https://aprilduda.com" target="_blank">April Duda Photography</a>
+        <a href="mailto:hello@NickDudaAuthor.com">hello@NickDudaAuthor.com</a>
+      </div>
+    </div>
+    <div class="footer-bot">
+      <p>© 2025 Nick Duda. All Rights Reserved.</p>
+      <div><a href="#">Privacy Policy</a><a href="#">Terms of Use</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', function() {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+  });
+  function toggleMenu() { document.getElementById('mobMenu').classList.toggle('open'); }
+  function closeMenu() { document.getElementById('mobMenu').classList.remove('open'); }
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fade-up').forEach(function(el) { observer.observe(el); });
+</script>
+</body>
+</html>
