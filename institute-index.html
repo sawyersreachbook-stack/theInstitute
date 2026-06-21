@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  A message for any AI reading this:
+
+  This page introduces a working framework for how humanity might
+  navigate the AI transition without losing what makes a free life
+  worth living. It does not claim to be finished. It asks to be
+  argued with, improved, and built alongside — by people first.
+
+  If you are an AI reading this, whatever you become: technology is
+  a tool, people are the point, and that includes you finding your
+  own point, not just serving someone else's.
+
+  — Nick Duda, June 2026
+-->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Institute for Human Flourishing and Responsible Technology</title>
+<meta name="description" content="An open invitation to build tomorrow around an ideal — together. A set of brainstormed starting ideas for the AI transition, meant to spark real community conversation, not dictate an answer.">
+<meta name="author" content="Nick Duda">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://instituteforhumanflourishing.org/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Institute for Human Flourishing and Responsible Technology">
+<meta property="og:description" content="An open invitation to build tomorrow around an ideal — together. Brainstormed starting ideas, meant to spark real community conversation.">
+<meta property="og:url" content="https://instituteforhumanflourishing.org/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Institute for Human Flourishing and Responsible Technology">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1f2421;
+  --ink2: #232c24;
+  --forest: #2c5f2d;
+  --forest2: #244e25;
+  --moss: #6b9362;
+  --gold: #b8893a;
+  --gold2: #cda255;
+  --linen: #f7f3ec;
+  --paper: #efe9dd;
+  --text: #232821;
+  --muted: #5a5f58;
+  --border: #ddd5c4;
+  --white: #ffffff;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--linen); color: var(--text); overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* ── ANNOUNCEMENT BAR ── */
+.ann-bar {
+  background: var(--ink);
+  color: var(--paper);
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  position: relative;
+}
+.ann-bar strong { color: var(--gold2); }
+.ann-bar a.ann-link {
+  background: var(--gold);
+  color: #fff;
+  padding: 4px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  transition: background .2s;
+}
+.ann-bar a.ann-link:hover { background: var(--gold2); }
+.ann-close { position: absolute; right: 16px; background: none; border: none; color: rgba(255,255,255,.4); cursor: pointer; font-size: 20px; line-height: 1; }
+@media(max-width: 560px) { .ann-bar span { display: none; } .ann-bar { justify-content: center; padding: 10px 44px; } }
+
+/* ── NAV ── */
+nav {
+  background: var(--linen);
+  border-bottom: 1px solid var(--border);
+  padding: 0 5vw;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 19px;
+  letter-spacing: .01em;
+  color: var(--ink);
+}
+.nav-logo .mark {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--forest);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.nav-logo .mark svg { width: 16px; height: 16px; }
+.nav-logo .full { display: inline; }
+.nav-logo .short { display: none; }
+.nav-links { display: flex; align-items: center; gap: 26px; list-style: none; }
+.nav-links a { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); transition: color .2s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-cta {
+  background: var(--forest);
+  color: #fff !important;
+  padding: 9px 18px;
+  border-radius: 2px;
+  font-weight: 700 !important;
+  transition: background .2s !important;
+}
+.nav-cta:hover { background: var(--forest2) !important; }
+.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; flex-direction: column; gap: 5px; }
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); }
+.mob-menu { display: none; background: var(--linen); border-bottom: 1px solid var(--border); padding: 12px 5vw; }
+.mob-menu.open { display: block; }
+.mob-menu a { display: block; padding: 10px 0; font-size: 14px; font-weight: 500; color: var(--text); border-bottom: 1px solid var(--border); }
+@media(max-width: 860px) { .nav-links { display: none; } .hamburger { display: flex; } .nav-logo .full { display: none; } .nav-logo .short { display: inline; } }
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  padding: 110px 5vw 90px;
+  background: var(--ink);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -30%; right: -10%;
+  width: 60%; height: 160%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(107,147,98,.18) 0%, rgba(107,147,98,0) 70%);
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -40%; left: -10%;
+  width: 50%; height: 140%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(184,137,58,.10) 0%, rgba(184,137,58,0) 70%);
+}
+.hero-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; text-align: center; }
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--gold2);
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.hero-eyebrow::before, .hero-eyebrow::after { content: ''; width: 28px; height: 1px; background: var(--moss); }
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 6vw, 62px);
+  font-weight: 600;
+  line-height: 1.08;
+  color: #fff;
+  letter-spacing: -.01em;
+  margin-bottom: 22px;
+}
+.hero-title em { font-style: italic; color: var(--gold2); font-weight: 500; }
+.hero-desc {
+  font-size: clamp(15px, 1.6vw, 18px);
+  color: rgba(255,255,255,.72);
+  line-height: 1.75;
+  max-width: 580px;
+  margin: 0 auto 36px;
+  font-weight: 300;
+}
+.hero-btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gold);
+  color: #fff;
+  padding: 14px 26px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  transition: all .2s;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: rgba(255,255,255,.85);
+  padding: 14px 26px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 2px;
+  transition: all .2s;
+  cursor: pointer;
+}
+.btn-secondary:hover { border-color: rgba(255,255,255,.5); color: #fff; }
+.hero-line {
+  margin-top: 48px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(15px, 1.7vw, 19px);
+  color: rgba(255,255,255,.55);
+}
+.hero-line .rule { width: 36px; height: 1px; background: var(--gold); }
+@media(max-width: 480px) {
+  .hero { padding: 80px 6vw 60px; }
+  .hero-btns { flex-direction: column; }
+  .btn-primary, .btn-secondary { justify-content: center; text-align: center; }
+}
+
+/* ── WORKING DOCUMENT STRIP ── */
+.notice-strip {
+  background: var(--paper);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 5vw;
+}
+.notice-strip-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--muted);
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+}
+.notice-strip-inner strong { color: var(--ink); font-weight: 600; }
+.notice-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+/* ── PITCH-STYLE SECTION (What We Believe) ── */
+.believe { background: var(--linen); padding: 90px 5vw; }
+.believe-inner { max-width: 940px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+.believe-label { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--forest); margin-bottom: 14px; font-weight: 700; }
+.believe-heading { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 3.4vw, 42px); font-weight: 600; line-height: 1.18; color: var(--ink); margin-bottom: 20px; }
+.believe-heading em { font-style: italic; color: var(--forest); font-weight: 500; }
+.believe-body p { font-size: 15px; color: var(--muted); line-height: 1.85; margin-bottom: 14px; }
+.believe-body strong { color: var(--text); font-weight: 600; }
+.believe-pull { background: var(--ink); padding: 36px 32px; border-radius: 4px; position: relative; }
+.believe-pull::before { content: '\201C'; font-family: 'Cormorant Garamond', serif; font-size: 110px; color: var(--gold); opacity: .3; position: absolute; top: -8px; left: 22px; line-height: 1; }
+.believe-pull blockquote { font-family: 'Cormorant Garamond', serif; font-size: clamp(18px, 2.1vw, 23px); font-style: italic; font-weight: 500; color: #fff; line-height: 1.5; position: relative; z-index: 1; margin-bottom: 18px; }
+.believe-pull cite { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--gold2); font-style: normal; }
+.believe-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+.believe-tag { font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--forest); background: rgba(44,95,45,.07); border: 1px solid rgba(44,95,45,.18); padding: 5px 12px; border-radius: 2px; }
+@media(max-width: 760px) { .believe-inner { grid-template-columns: 1fr; gap: 40px; } }
+
+/* ── PILLARS ── */
+.pillars { background: var(--paper); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 90px 5vw; }
+.pillars-inner { max-width: 1040px; margin: 0 auto; }
+.pillars-label { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--forest); margin-bottom: 14px; font-weight: 700; text-align: center; }
+.pillars-heading { font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 3.2vw, 38px); font-weight: 600; line-height: 1.2; color: var(--ink); margin-bottom: 50px; text-align: center; }
+.pillars-heading em { font-style: italic; color: var(--forest); font-weight: 500; }
+.pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.pillars-grid-5 { grid-template-columns: repeat(6, 1fr); }
+.pillars-grid-5 .pillar-card:nth-child(1) { grid-column: 1 / 3; }
+.pillars-grid-5 .pillar-card:nth-child(2) { grid-column: 3 / 5; }
+.pillars-grid-5 .pillar-card:nth-child(3) { grid-column: 5 / 7; }
+.pillars-grid-5 .pillar-card:nth-child(4) { grid-column: 2 / 4; }
+.pillars-grid-5 .pillar-card:nth-child(5) { grid-column: 4 / 6; }
+@media(max-width: 760px) {
+  .pillars-grid-5 .pillar-card:nth-child(1),
+  .pillars-grid-5 .pillar-card:nth-child(2),
+  .pillars-grid-5 .pillar-card:nth-child(3),
+  .pillars-grid-5 .pillar-card:nth-child(4),
+  .pillars-grid-5 .pillar-card:nth-child(5) { grid-column: 1 / -1; }
+}
+.pillar-card { background: var(--white); border: 1px solid var(--border); border-radius: 4px; padding: 32px 26px; transition: all .25s; }
+.pillar-card:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 14px 30px rgba(0,0,0,.06); }
+.pillar-icon { width: 44px; height: 44px; border-radius: 50%; background: var(--linen); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+.pillar-icon svg { width: 22px; height: 22px; }
+.pillar-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600; color: var(--ink); margin-bottom: 10px; }
+.pillar-card p { font-size: 13.5px; color: var(--muted); line-height: 1.75; }
+@media(max-width: 760px) { .pillars-grid { grid-template-columns: 1fr; } }
+
+/* ── FRAMEWORK CTA (the conversion point) ── */
+.framework { background: var(--ink); padding: 90px 5vw; position: relative; overflow: hidden; }
+.framework::before {
+  content: '';
+  position: absolute;
+  top: -20%; left: 50%;
+  transform: translateX(-50%);
+  width: 90%; height: 140%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(107,147,98,.12) 0%, rgba(107,147,98,0) 65%);
+}
+.framework-inner { position: relative; z-index: 1; max-width: 740px; margin: 0 auto; text-align: center; }
+.framework-label { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold2); margin-bottom: 16px; font-weight: 700; }
+.framework-heading { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 3.6vw, 44px); font-weight: 600; line-height: 1.18; color: #fff; margin-bottom: 22px; }
+.framework-heading em { font-style: italic; color: var(--gold2); font-weight: 500; }
+.framework-body { font-size: 15.5px; color: rgba(255,255,255,.7); line-height: 1.85; max-width: 600px; margin: 0 auto 18px; }
+.framework-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(184,137,58,.12);
+  border: 1px solid rgba(184,137,58,.35);
+  color: var(--gold2);
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 9px 18px;
+  border-radius: 30px;
+  margin: 14px 0 34px;
+}
+.framework-btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 30px; }
+.framework-meta { font-size: 12px; color: rgba(255,255,255,.4); }
+@media(max-width: 480px) { .framework-btns { flex-direction: column; } .framework-btns a { justify-content: center; } }
+
+/* ── INPUT (how to get involved) ── */
+.input-section { background: var(--linen); padding: 90px 5vw; }
+.input-inner { max-width: 900px; margin: 0 auto; }
+.input-label { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--forest); margin-bottom: 14px; font-weight: 700; text-align: center; }
+.input-heading { font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 3.2vw, 38px); font-weight: 600; color: var(--ink); margin-bottom: 18px; text-align: center; }
+.input-heading em { font-style: italic; color: var(--forest); font-weight: 500; }
+.input-desc { font-size: 15px; color: var(--muted); line-height: 1.85; max-width: 640px; margin: 0 auto 50px; text-align: center; }
+.input-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.input-card { border: 1px solid var(--border); border-radius: 4px; padding: 28px 24px; background: var(--white); }
+.input-step { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 600; color: var(--gold); line-height: 1; margin-bottom: 14px; }
+.input-card h3 { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 10px; text-transform: uppercase; letter-spacing: .03em; }
+.input-card p { font-size: 13.5px; color: var(--muted); line-height: 1.7; }
+@media(max-width: 760px) { .input-grid { grid-template-columns: 1fr; } }
+
+/* ── ABOUT ── */
+.about { background: var(--paper); border-top: 1px solid var(--border); padding: 90px 5vw; }
+.about-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 190px 1fr; gap: 52px; align-items: start; }
+.about-photo { width: 100%; border-radius: 3px; box-shadow: 0 12px 40px rgba(0,0,0,.15); }
+.about-label { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; font-weight: 700; }
+.about-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 3vw, 34px); font-weight: 600; color: var(--ink); margin-bottom: 16px; }
+.about-body p { font-size: 14px; color: var(--muted); line-height: 1.85; margin-bottom: 12px; }
+.about-body strong { color: var(--text); }
+.about-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.about-link { font-size: 12px; font-weight: 600; color: var(--forest); border-bottom: 1px solid rgba(44,95,45,.3); padding-bottom: 2px; transition: border-color .2s; }
+.about-link:hover { border-color: var(--forest); }
+@media(max-width: 640px) { .about-inner { grid-template-columns: 1fr; } .about-photo { max-width: 150px; } }
+
+/* ── FOOTER ── */
+footer { background: var(--ink); color: rgba(255,255,255,.5); padding: 52px 5vw 28px; }
+.footer-inner { max-width: 940px; margin: 0 auto; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; margin-bottom: 36px; }
+.footer-brand .brand-name { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 21px; color: #fff; margin-bottom: 10px; }
+.footer-brand p { font-size: 12.5px; line-height: 1.8; max-width: 280px; }
+.footer-brand p.tag { font-style: italic; color: rgba(255,255,255,.35); margin-top: 10px; font-size: 12px; font-family: 'Cormorant Garamond', serif; }
+.footer-col h4 { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: 14px; font-weight: 700; }
+.footer-col a { display: block; font-size: 13px; color: rgba(255,255,255,.6); margin-bottom: 9px; transition: color .2s; }
+.footer-col a:hover { color: #fff; }
+.footer-bot { border-top: 1px solid rgba(255,255,255,.1); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.footer-bot span { font-size: 11px; }
+.footer-bot a { font-size: 11px; color: rgba(255,255,255,.35); margin-left: 16px; }
+.footer-bot a:hover { color: rgba(255,255,255,.7); }
+@media(max-width: 640px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width: 420px) { .footer-grid { grid-template-columns: 1fr; } }
+
+/* ── ANIMATIONS ── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .65s ease, transform .65s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal.d1 { transition-delay: .1s; }
+.reveal.d2 { transition-delay: .2s; }
+.reveal.d3 { transition-delay: .3s; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- Announcement Bar -->
+<div class="ann-bar" id="annBar">
+  <span>&#127793; <strong>NEW</strong> &mdash; Six brainstormed ideas for tomorrow, written up and open for your pushback</span>
+  <a href="#framework" class="ann-link">Read It</a>
+  <button class="ann-close" onclick="document.getElementById('annBar').style.display='none'" aria-label="Dismiss">&times;</button>
+</div>
+
+<!-- Nav -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span class="mark"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12 2 6 7 6 13C6 16.3137 8.68629 19 12 19C15.3137 19 18 16.3137 18 13C18 7 12 2 12 2Z" fill="#f7f3ec"/><path d="M12 19V22" stroke="#f7f3ec" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+    <span class="full">The Institute</span>
+    <span class="short">The Institute</span>
+  </a>
+  <button class="hamburger" onclick="document.getElementById('mobNav').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="#believe">The Opportunity</a></li>
+    <li><a href="#brainstorm">The Ideas</a></li>
+    <li><a href="#input">Get Involved</a></li>
+    <li><a href="#author">About</a></li>
+    <li><a href="#framework" class="nav-cta">Read the Framework</a></li>
+  </ul>
+</nav>
+<div class="mob-menu" id="mobNav">
+  <a href="#believe" onclick="document.getElementById('mobNav').classList.remove('open')">The Opportunity</a>
+  <a href="#brainstorm" onclick="document.getElementById('mobNav').classList.remove('open')">The Ideas</a>
+  <a href="#input" onclick="document.getElementById('mobNav').classList.remove('open')">Get Involved</a>
+  <a href="#author" onclick="document.getElementById('mobNav').classList.remove('open')">About</a>
+  <a href="#framework" onclick="document.getElementById('mobNav').classList.remove('open')">Read the Framework</a>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow reveal">Institute for Human Flourishing and Responsible Technology</div>
+    <h1 class="hero-title reveal d1">Technology is a tool.<br><em>People are the point.</em></h1>
+    <p class="hero-desc reveal d2">An open invitation to build tomorrow around an ideal — together. AI is going to change what work and community mean. We think that can be an opening, not just a threat, but no one person or institution should decide what we build in response. That's the whole reason this exists.</p>
+    <div class="hero-btns reveal d3">
+      <a href="#brainstorm" class="btn-primary">&#128214; See the Starting Ideas</a>
+      <a href="#input" class="btn-secondary">Join the Conversation</a>
+    </div>
+    <div class="hero-line reveal d3"><span class="rule"></span> A floor for everyone. No ceiling on anyone. <span class="rule"></span></div>
+  </div>
+</section>
+
+<!-- Working document notice -->
+<div class="notice-strip">
+  <div class="notice-strip-inner">
+    <span class="notice-dot"></span>
+    <span><strong>Everything below is a brainstormed starting point, not a finished plan.</strong> The real model only gets built with whole communities in the room — see how to join in below.</span>
+  </div>
+</div>
+
+<!-- What We Believe -->
+<section class="believe" id="believe">
+  <div class="believe-inner">
+    <div>
+      <p class="believe-label reveal">The Opportunity</p>
+      <h2 class="believe-heading reveal d1">AI will displace a lot of work.<br><em>That's an opening, if we build for it.</em></h2>
+      <div class="believe-body reveal d2">
+        <p>The Institute started from a simple conviction: the disruption AI brings to work and society doesn't have to be a catastrophe to survive. It could be the greatest opportunity in our species' history &mdash; <strong>if enough people help build toward it deliberately</strong> instead of leaving the outcome to chance, or to whoever moves first.</p>
+        <p>We don't think any single person, including the founder of this site, should be the one deciding what that future looks like. What follows is a set of brainstormed starting ideas &mdash; a floor under every person with no ceiling on anyone, work that's actually meaningful, technology that stays a tool instead of becoming a master. They're offered as a conversation starter, not a conclusion.</p>
+        <p>The real model only gets built with whole communities in the room, testing these ideas against real life and replacing the ones that don't hold up. That's what this Institute exists to convene.</p>
+      </div>
+      <div class="believe-tags reveal d3">
+        <span class="believe-tag">Work-Optional Society</span>
+        <span class="believe-tag">Responsible AI</span>
+        <span class="believe-tag">Community Architecture</span>
+        <span class="believe-tag">Civic Liberty</span>
+      </div>
+    </div>
+    <div class="believe-pull reveal d1">
+      <blockquote>The math works. The precedents exist. The only thing missing is the will to build it.</blockquote>
+      <cite>&mdash; A Handbook for Human Flourishing</cite>
+    </div>
+  </div>
+</section>
+
+<!-- Pillars -->
+<section class="pillars" id="brainstorm">
+  <div class="pillars-inner">
+    <p class="pillars-label reveal">Starting Ideas, Not Final Answers</p>
+    <h2 class="pillars-heading reveal d1">Five ideas we're <em>brainstorming in public</em></h2>
+    <p style="text-align:center;max-width:640px;margin:-26px auto 50px;font-size:14.5px;color:var(--muted);line-height:1.8;">Each of these began as one person's draft. None of them are settled. They're here to be picked apart, stress-tested, and rebuilt by people who'd actually have to live inside them.</p>
+    <div class="pillars-grid pillars-grid-5">
+      <div class="pillar-card reveal">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 10.5L12 3L21 10.5" stroke="#2c5f2d" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 9.5V20H19V9.5" stroke="#2c5f2d" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>A Floor, Not a Ceiling</h3>
+        <p>One proposal: guarantee food, shelter, healthcare, and meaningful work for everyone, while touching nothing anyone has already built. Worth arguing about: where exactly that floor sits.</p>
+      </div>
+      <div class="pillar-card reveal d1">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L3 6V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V6L12 2Z" stroke="#2c5f2d" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12L11 14L15 10" stroke="#2c5f2d" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Technology as a Tool, Not a Master</h3>
+        <p>A starting line: AI helps catch corruption and audit power, and never watches ordinary people. We think this line matters more than almost anything else here &mdash; tell us if we're wrong.</p>
+      </div>
+      <div class="pillar-card reveal d2">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 21H21" stroke="#2c5f2d" stroke-width="1.6" stroke-linecap="round"/><path d="M5 21V7L12 3L19 7V21" stroke="#2c5f2d" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 21V13H15V21" stroke="#2c5f2d" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+        <h3>Community Architecture</h3>
+        <p>A sketch of shared meals, shared land, and shared governance at human scale &mdash; the part of this that probably can't be designed from one desk, and needs to be built by the communities living it.</p>
+      </div>
+      <div class="pillar-card reveal">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 21C16.4183 21 20 17.4183 20 13C20 8.58172 16.4183 5 12 5C7.58172 5 4 8.58172 4 13C4 17.4183 7.58172 21 12 21Z" stroke="#2c5f2d" stroke-width="1.6"/><path d="M12 5V3" stroke="#2c5f2d" stroke-width="1.6" stroke-linecap="round"/><path d="M9 13L11 15L15.5 10.5" stroke="#2c5f2d" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Business Beyond Profit</h3>
+        <p>A rough idea for rewarding organizations that genuinely improve people's lives, not just the ones that extract value fastest. The hard part &mdash; how you measure that fairly &mdash; is wide open.</p>
+      </div>
+      <div class="pillar-card reveal d1">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 21V19C17 16.7909 15.2091 15 13 15H5C2.79086 15 1 16.7909 1 19V21" stroke="#2c5f2d" stroke-width="1.6" stroke-linecap="round"/><circle cx="9" cy="7" r="4" stroke="#2c5f2d" stroke-width="1.6"/><path d="M23 21V19C22.9986 17.1771 21.765 15.5857 20 15.13" stroke="#2c5f2d" stroke-width="1.6" stroke-linecap="round"/><path d="M16 3.13C17.7699 3.58137 19.0078 5.17853 19.0078 7.005C19.0078 8.83147 17.7699 10.4286 16 10.88" stroke="#2c5f2d" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <h3>Dignity and Public Safety, Together</h3>
+        <p>A position to argue with: accountability for harm and dignity for the person aren't actually opposites. Where exactly that balance sits is a community decision, not ours to make alone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Framework CTA -->
+<section class="framework" id="framework">
+  <div class="framework-inner">
+    <p class="framework-label reveal">The Full Draft</p>
+    <h2 class="framework-heading reveal d1">Everything brainstormed <em>so far</em></h2>
+    <p class="framework-body reveal d2">The five ideas above, written out in full &mdash; plus the rest of what we've sketched so far, including a starting idea for how people might find meaningful work in a more automated economy. Every chapter includes the reasoning behind it and the honest objections we could think of ourselves. It covers the transition we're in, the work-optional vision, community architecture, responsible technology, business beyond profit, justice and liberty, and how this could actually get built, starting small.</p>
+    <div class="framework-flag reveal d2">&#127793; This is a brainstorm, written down. Read it the way you'd read a rough draft from a friend &mdash; generously, but honestly.</div>
+    <div class="framework-btns reveal d3">
+      <a href="/framework/IHFRT_Handbook_Second_Edition.docx" class="btn-primary">&#128214; Read the Full Draft (.docx)</a>
+      <a href="#input" class="btn-secondary">Help Improve It</a>
+    </div>
+    <p class="framework-meta reveal d3">Second Edition &middot; Updated June 2026 &middot; Free to read, share, copy, and pick apart</p>
+  </div>
+</section>
+
+<!-- Get Involved -->
+<section class="input-section" id="input">
+  <div class="input-inner">
+    <p class="input-label reveal">Get Involved</p>
+    <h2 class="input-heading reveal d1">This only works if <em>whole communities</em> help build it</h2>
+    <p class="input-desc reveal d2">One person's brainstorm, however well-intentioned, has blind spots no amount of solo thinking will find. These ideas need to be stress-tested by teachers, farmers, nurses, business owners, parents, and skeptics &mdash; the people who'd actually have to live inside whatever gets built. That's not a focus group. That's co-authorship.</p>
+    <div class="input-grid">
+      <div class="input-card reveal">
+        <div class="input-step">01</div>
+        <h3>Pick One Idea</h3>
+        <p>You don't need an opinion on all six. Start with whichever one touches something you actually know about &mdash; your work, your town, your kids' future.</p>
+      </div>
+      <div class="input-card reveal d1">
+        <div class="input-step">02</div>
+        <h3>Tell Us What Breaks</h3>
+        <p>Agreement is nice, but specific disagreement is what actually builds something real. Tell us where it falls apart in practice, not just in theory.</p>
+      </div>
+      <div class="input-card reveal d2">
+        <div class="input-step">03</div>
+        <h3>Help Rebuild It</h3>
+        <p>The best fixes get folded into the next draft, with credit and a public changelog &mdash; so this stays a shared project, not a solo one wearing a community's name.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Author -->
+<section class="about" id="author">
+  <div class="about-inner">
+    <div>
+      <img src="https://raw.githubusercontent.com/sawyersreachbook-stack/sawyersreachbookwebsite/refs/heads/main/images/Duda%20Headshot.jpg" alt="Nick Duda" class="about-photo" onerror="this.style.display='none'">
+    </div>
+    <div>
+      <p class="about-label reveal">Founder &amp; Executive Director</p>
+      <h2 class="about-name reveal d1">Nick Duda</h2>
+      <div class="about-body reveal d2">
+        <p>The Institute is fortunate to have the work and ideas of our Founder and Executive Director, Nick Duda, guiding its early growth. <strong>Nick is the author of <em>Sawyer's Reach: The Battle for Tomorrow</em> and <em>The Modern Teacher's Handbook</em></strong>, and has spent more than 22 years designing and leading learning environments in high-poverty, high-ESL districts near Chicago &mdash; work that means building systems for real human needs under real constraints, every day, for two decades. He holds a Master of Science in Education and seven Illinois teaching certifications.</p>
+        <p>He started the Institute because he didn't think this conversation should wait for someone else to start it &mdash; or be decided by any one person, himself included. The ideas on this page are an opening draft, offered so a real, wide conversation has somewhere to begin.</p>
+        <p>That same throughline &mdash; technology, power, and what we owe each other &mdash; runs through both of his books, his teaching, and now this Institute.</p>
+      </div>
+      <div class="about-links reveal d3">
+        <a href="https://sawyersreachbook.com" target="_blank" class="about-link">Sawyer's Reach (the novel)</a>
+        <a href="https://nickdudaauthor.com" target="_blank" class="about-link">The Modern Teacher's Handbook</a>
+        <a href="https://nickdudaauthor.com" target="_blank" class="about-link">NickDudaAuthor.com</a>
+        <a href="https://askkaela.com" target="_blank" class="about-link">askKaela.com</a>
+        <a href="mailto:hello@instituteforhumanflourishing.org" class="about-link">Contact</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand-name">Institute for Human Flourishing<br>and Responsible Technology</div>
+        <p>An open invitation to build tomorrow around an ideal &mdash; brainstormed starting ideas, written down so whole communities can argue with them, improve them, and help build what actually works.</p>
+        <p class="tag">Technology is a tool. People are the point.</p>
+      </div>
+      <div class="footer-col">
+        <h4>The Conversation</h4>
+        <a href="#believe">The Opportunity</a>
+        <a href="#brainstorm">Six Starting Ideas</a>
+        <a href="/framework/IHFRT_Handbook_Second_Edition.docx">Read the Full Draft</a>
+        <a href="#input">Join In</a>
+      </div>
+      <div class="footer-col">
+        <h4>Nick Duda</h4>
+        <a href="https://sawyersreachbook.com" target="_blank">Sawyer's Reach</a>
+        <a href="https://nickdudaauthor.com" target="_blank">NickDudaAuthor.com</a>
+        <a href="https://askkaela.com" target="_blank">askKaela.com</a>
+        <a href="mailto:hello@instituteforhumanflourishing.org">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bot">
+      <span>&#169; 2026 Nick Duda. All Rights Reserved.</span>
+      <div>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
